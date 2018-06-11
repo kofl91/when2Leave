@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>When To Leave?</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+    <!--<link rel="stylesheet" type="text/css"-->
+    <!--href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
+
+    <style>
+        .timer {
+            font-size: 500%;
+            color: greenyellow;
+        }
+
+        .lines {
+            text-align: center;
+        }
+
+        .times {
+            text-align: center;
+        }
+
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        .timercontainer {
+            float: left;
+            padding: 5%;
+        }
+
+        .alltimers {
+            align-content: center;
+        }
+
+        div > span {
+            font-size: 125%;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="starter-template">
+        <span class="timer">12:30</span>
+        <h1>You have to leave in:</h1>
+        <div class="alltimers">
+
+            <div class="timercontainer">
+                <h2>
+                    <span class="timer" id="timer_1">30:12</span>
+                </h2>
+                <div class="lines" id="lines_1">
+                    <span>WALK</span>
+                    <span>-></span>
+                    <span>U2</span>
+                    <span>-></span>
+                    <span>WALK</span>
+                </div>
+                <div class="times">
+                    <span>13min</span>
+                    <span>-></span>
+                    <span>5min</span>
+                    <span>-></span>
+                    <span>20min</span>
+                </div>
+                <div class="times" id="arrivalTime_1">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--<script type="text/javascript"-->
+<!--src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<script>
+    "use strict";
+    var leaveAt = new Date();
+
+    function getTime() {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "/time", false); // false for synchronous request
+        xmlHttp.send(null);
+        var responseText = xmlHttp.responseText;
+        var parsed = JSON.parse(responseText);
+        console.log(parsed);
+        document.getElementById("lines_1").innerHTML = "";
+        parsed.lines.forEach(function (element) {
+                document.getElementById("lines_1")
+                    .innerHTML += "<span>" + element + "</span>\n<span>-></span>";
+            }
+        );
+        document.getElementById("lines_1").innerHTML += "GOAL";
+        document.getElementById("arrivalTime_1").innerHTML = "<span>" + new Date(parsed.arrival) + "</span>";
+    }
+
+
+    function doDate() {
+        var now = new Date().getTime();
+
+        // Find the distance between now an the count down date
+        var distance = leaveAt - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("timer_1").innerHTML = minutes + "m " + seconds + "s ";
+    }
+
+    leaveAt = new Date(parsed.departure);
+    leaveAt.setMinutes(leaveAt.getMinutes() + 5);
+    leaveAt.setSeconds(leaveAt.getSeconds() + 30);
+
+    getTime();
+
+    setInterval(doDate, 1000);
+    setInterval(getTime, 3 * 60 * 1000);
+</script>
+</body>
+
+</html>
