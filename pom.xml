@@ -7,7 +7,7 @@
     <groupId>de.kofl</groupId>
     <artifactId>WhenToLeave</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -41,13 +41,6 @@
             <version>2.8.2</version>
         </dependency>
         <dependency>
-            <groupId>com.google.maps</groupId>
-            <artifactId>google-maps-services</artifactId>
-            <version>0.2.7</version>
-            <scope>system</scope>
-            <systemPath>/Users/kimfehrs/Documents/Projects/Personal/IDEA3/When2Leave/g_map_services.jar</systemPath>
-        </dependency>
-        <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.9.9</version>
@@ -59,5 +52,26 @@
             <version>3.8.1</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.1</version>
+        </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.0.3.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

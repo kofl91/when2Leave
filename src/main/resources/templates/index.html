@@ -96,6 +96,7 @@
         );
         document.getElementById("lines_1").innerHTML += "GOAL";
         document.getElementById("arrivalTime_1").innerHTML = "<span>" + new Date(parsed.arrival) + "</span>";
+        leaveAt = new Date(parsed.departure);
     }
 
 
@@ -113,14 +114,8 @@
         document.getElementById("timer_1").innerHTML = minutes + "m " + seconds + "s ";
     }
 
-    leaveAt = new Date(parsed.departure);
-    leaveAt.setMinutes(leaveAt.getMinutes() + 5);
-    leaveAt.setSeconds(leaveAt.getSeconds() + 30);
-
-    getTime();
-
     setInterval(doDate, 1000);
-    setInterval(getTime, 3 * 60 * 1000);
+    setInterval(getTime, 20 * 1000);
 </script>
 </body>
 

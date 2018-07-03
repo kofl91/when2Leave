@@ -6,6 +6,8 @@ import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.*;
+import de.kofl.learning.ResourcesConfiguration;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.util.Date;
@@ -13,6 +15,8 @@ import java.util.Date;
 public class GoogleAPI {
 
     private final GeoApiContext context;
+
+
 
     public GoogleAPI() {
         context = new GeoApiContext.Builder()

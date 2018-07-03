@@ -1,5 +1,6 @@
 package de.kofl.learning;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -15,4 +16,6 @@ public class ResourcesConfiguration extends WebMvcConfigurerAdapter {
                 .addResourceLocations("/resources/","/css/");
     }
 
+    @Value("${google.api}")
+    public static String apiKey;
 }

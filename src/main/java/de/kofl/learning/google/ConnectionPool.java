@@ -1,7 +1,5 @@
 package de.kofl.learning.google;
 
-import de.kofl.learning.google.GoogleAPI;
-import de.kofl.learning.google.TravelConnection;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -15,10 +13,10 @@ import java.util.stream.Collectors;
 @Data
 public class ConnectionPool {
 
-    private List<TravelConnection> travelConnections = new ArrayList<>();
-    private GoogleAPI googleAPI;
     private final String origin;
     private final String destination;
+    private List<TravelConnection> travelConnections = new ArrayList<>();
+    private GoogleAPI googleAPI;
     protected Runnable updateConnections = new Runnable() {
         public void run() {
             updateConnection();
@@ -42,14 +40,13 @@ public class ConnectionPool {
         }
     }
 
-
-    void discardOldConnections(Date discardDate) {
+    private void discardOldConnections(Date discardDate) {
         travelConnections = travelConnections.stream().filter(connection -> {
             return connection.getDeparture().compareTo(discardDate) > 0;
         }).collect(Collectors.toList());
     }
 
-    void addConnection(TravelConnection connection) {
+    private void addConnection(TravelConnection connection) {
         if (!travelConnections.contains(connection)) {
             travelConnections.add(connection);
         }
@@ -61,6 +58,5 @@ public class ConnectionPool {
 
     public void stopUpdate() {
         exec.shutdown();
-        System.out.println("das");
     }
 }
