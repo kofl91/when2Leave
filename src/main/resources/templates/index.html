@@ -81,22 +81,25 @@
     "use strict";
     var leaveAt = new Date();
 
-    function getTime() {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", "/time", false); // false for synchronous request
-        xmlHttp.send(null);
-        var responseText = xmlHttp.responseText;
-        var parsed = JSON.parse(responseText);
-        console.log(parsed);
+    var displayTravelConnection = function (travelConnection) {
+        console.log(travelConnection);
         document.getElementById("lines_1").innerHTML = "";
-        parsed.lines.forEach(function (element) {
+        travelConnection.lines.forEach(function (element) {
                 document.getElementById("lines_1")
                     .innerHTML += "<span>" + element + "</span>\n<span>-></span>";
             }
         );
         document.getElementById("lines_1").innerHTML += "GOAL";
-        document.getElementById("arrivalTime_1").innerHTML = "<span>" + new Date(parsed.arrival) + "</span>";
-        leaveAt = new Date(parsed.departure);
+        document.getElementById("arrivalTime_1").innerHTML = "<span>" + new Date(travelConnection.arrival) + "</span>";
+        leaveAt = new Date(travelConnection.departure);
+    };
+
+    function getTime() {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "/time", false); // false for synchronous request
+        xmlHttp.send(null);
+        var travelConnection = JSON.parse(xmlHttp.responseText);
+        displayTravelConnection(travelConnection);
     }
 
 
@@ -115,7 +118,8 @@
     }
 
     setInterval(doDate, 1000);
-    setInterval(getTime, 20 * 1000);
+    setInterval(getTime, 5 * 1000);
+    getTime();
 </script>
 </body>
 

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.kofl</groupId>
     <artifactId>WhenToLeave</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
@@ -17,6 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <artifactrepo.url>aws-jar-repo</artifactrepo.url>
     </properties>
 
     <dependencies>
@@ -73,5 +72,28 @@
                 </executions>
             </plugin>
         </plugins>
+        <extensions>
+            <extension>
+                <groupId>org.kuali.maven.wagons</groupId>
+                <artifactId>maven-s3-wagon</artifactId>
+                <version>1.2.1</version>
+            </extension>
+        </extensions>
     </build>
+    <scm>
+        <connection>scm:git:https://github.com/kofl91/when2Leave.git</connection>
+        <developerConnection>scm:git:https://github.com/kofl91/when2Leave.git</developerConnection>
+      <tag>HEAD</tag>
+  </scm>
+    <distributionManagement>
+        <repository>
+            <id>s3.artifacts.release</id>
+            <name>S3Repo</name>
+            <url>s3://${artifactrepo.url}/release</url>
+        </repository>
+        <snapshotRepository>
+            <id>s3.artifacts.snapshot</id>
+            <url>s3://${artifactrepo.url}/snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
